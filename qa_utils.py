@@ -414,17 +414,17 @@ def main(arguments):
                                      args.src_txt_file,
                                      args.gen_txt_file,
                                      args.gen_qst_file,
-                                     args.src_w_trg_txt_file,
-                                     args.gen_prob_file,
-                                     args.gen_ans_file,
-                                     args.gen_prd_file,
+                                     gen_prob_file=args.gen_prob_file,
+                                     gen_ans_file=args.gen_ans_file,
+                                     gen_prd_file=args.gen_prd_file,
+                                     src_w_trg_txt_file=args.src_w_trg_txt_file,
                                      n_ans=args.n_ans_per_doc, n_gen_qsts=args.n_gen_qsts, n_qsts=args.n_qsts_per_doc,
                                      use_all_qsts=args.use_all_qsts, use_act_anss=args.use_act_anss, use_exp_anss=args.use_exp_anss,
                                     )
 
     elif args.command == "compute-qags":
-        qags_scores = get_qags_scores(args.src_ans_file, args.trg_ans_file, args.ans_similarity_fn)
-        with open(os.path.join(args.out_dir, "qags_scores.txt", "w")) as out_fh:
+        qags_scores = get_qags_scores(args.source_ans_file, args.target_ans_file, args.ans_similarity_fn, n_qsts_per_doc=args.n_qsts_per_doc)
+        with open(os.path.join(args.out_dir, "qags_scores.txt"), "w") as out_fh:
             for score in qags_scores:
                 out_fh.write(f"{score}\n")
 
