@@ -129,8 +129,12 @@ def extract_gen_from_fseq_log(data_file, out_dir):
         ex_gens = data[ex_id]['gen']
         for raw, prob in ex_gens:
             tok_str = raw.replace('<s>', '').replace('<mask>', '').strip().split()
-            tok_ids = [int(t) for t in tok_str]
-            gen = tokenizer.decode(tok_ids)
+            # tok_ids = [int(t) for t in tok_str]
+            # gen = tokenizer.decode(tok_ids)
+
+            # The tok_str is already the decoded string, so the int() cast fails. I assume that the
+            # decoding already happened in fairseq
+            gen = ' '.join(tok_str)
             gen_fh.write(f'{gen}\n')
             prob_fh.write(f'{prob}\n')
             n_gens += 1
